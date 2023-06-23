@@ -143,3 +143,5 @@ for (const method of ['get', 'post', 'head', 'options', 'put', 'patch', 'delete'
 }
 
 export default defaultHandler
+
+export type * from './types.mjs'
