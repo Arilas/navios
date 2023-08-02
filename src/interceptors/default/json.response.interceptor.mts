@@ -14,7 +14,7 @@ export function jsonResponseInterceptor(response: NaviosResponse<any>) {
 export function jsonErrorInterceptor(err: NaviosError<any>) {
   const contentType = err?.response?.headers?.get('content-type')
   if (contentType && contentType.includes('application/json') && typeof err.response.data === 'string') {
-    return {
+    throw {
       ...err,
       response: {
         ...err.response,
@@ -22,5 +22,5 @@ export function jsonErrorInterceptor(err: NaviosError<any>) {
       },
     }
   }
-  return err
+  throw err
 }
