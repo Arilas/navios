@@ -2,7 +2,7 @@ import type { NaviosError, NaviosResponse } from "../../types.mjs"
 
 export function jsonResponseInterceptor(response: NaviosResponse<any>) {
   const contentType = response.headers.get('content-type')
-  if (contentType && contentType.includes('application/json')) {
+  if (contentType && contentType.includes('application/json') && typeof response.data === 'string') {
     return {
       ...response,
       data: JSON.parse(response.data),
@@ -13,7 +13,7 @@ export function jsonResponseInterceptor(response: NaviosResponse<any>) {
 
 export function jsonErrorInterceptor(err: NaviosError<any>) {
   const contentType = err?.response?.headers?.get('content-type')
-  if (contentType && contentType.includes('application/json')) {
+  if (contentType && contentType.includes('application/json') && typeof err.response.data === 'string') {
     return {
       ...err,
       response: {
