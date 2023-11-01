@@ -1,6 +1,8 @@
-import type { NaviosRequestConfig } from "../../types.mjs"
+import type { NaviosRequestConfig } from '../../types.mjs'
 
-export function paramsRequestInterceptor(config: NaviosRequestConfig<any, any>) {
+export function paramsRequestInterceptor(
+  config: NaviosRequestConfig<any, any>,
+) {
   if (config.params && config.url && !config.url.includes('?')) {
     const params = new URLSearchParams()
     for (const [key, value] of Object.entries(config.params)) {

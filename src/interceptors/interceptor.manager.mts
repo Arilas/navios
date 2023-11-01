@@ -1,6 +1,13 @@
-import type { NaviosError, NaviosRequestConfig, NaviosResponse } from "../types.mjs"
-import { jsonErrorInterceptor, jsonResponseInterceptor } from "./default/json.response.interceptor.mjs"
-import { paramsRequestInterceptor } from "./default/params.request.interceptor.mjs"
+import type {
+  NaviosError,
+  NaviosRequestConfig,
+  NaviosResponse,
+} from '../types.mjs'
+import {
+  jsonErrorInterceptor,
+  jsonResponseInterceptor,
+} from './default/json.response.interceptor.mjs'
+import { paramsRequestInterceptor } from './default/params.request.interceptor.mjs'
 
 export const defaultInterceptors = {
   request: {
@@ -10,7 +17,7 @@ export const defaultInterceptors = {
   response: {
     success: [jsonResponseInterceptor],
     rejected: [jsonErrorInterceptor],
-  }
+  },
 }
 
 export function createInterceptorManager() {
@@ -30,7 +37,7 @@ export function createInterceptorManager() {
   const rejectedResponseInterceptors: Map<
     number,
     (response: NaviosError<any>) => any
-    > = new Map()
+  > = new Map()
 
   function useRequestInterceptor(
     handler: null | ((onInit: NaviosRequestConfig<any, any>) => any),
@@ -39,7 +46,6 @@ export function createInterceptorManager() {
     id++
     if (handler) {
       initRequestInterceptors.set(id, handler)
-
     }
     if (onRejected) {
       rejectedRequestInterceptors.set(id, onRejected)
@@ -60,11 +66,18 @@ export function createInterceptorManager() {
     }
     return id
   }
-  defaultInterceptors.request.init.forEach(interceptor => useRequestInterceptor(interceptor))
-  defaultInterceptors.request.rejected.forEach(interceptor => useRequestInterceptor(null, interceptor))
-  defaultInterceptors.response.success.forEach(interceptor => useResponseInterceptor(interceptor))
-  defaultInterceptors.response.rejected.forEach(interceptor => useResponseInterceptor(null, interceptor))
-
+  defaultInterceptors.request.init.forEach((interceptor) =>
+    useRequestInterceptor(interceptor),
+  )
+  defaultInterceptors.request.rejected.forEach((interceptor) =>
+    useRequestInterceptor(null, interceptor),
+  )
+  defaultInterceptors.response.success.forEach((interceptor) =>
+    useResponseInterceptor(interceptor),
+  )
+  defaultInterceptors.response.rejected.forEach((interceptor) =>
+    useResponseInterceptor(null, interceptor),
+  )
 
   return {
     interceptors: {
@@ -75,7 +88,7 @@ export function createInterceptorManager() {
       response: {
         success: successResponseInterceptors,
         rejected: rejectedResponseInterceptors,
-      }
+      },
     },
     request: {
       use: useRequestInterceptor,

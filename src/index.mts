@@ -1,4 +1,11 @@
-import type { NaviosConfig, Navios, NaviosRequestConfig, NaviosResponse, NaviosError, NaviosStatic } from './types.mjs'
+import type {
+  NaviosConfig,
+  Navios,
+  NaviosRequestConfig,
+  NaviosResponse,
+  NaviosError,
+  NaviosStatic,
+} from './types.mjs'
 import defaultAdapter from './adapter/native.mjs'
 import { createInterceptorManager } from './interceptors/interceptor.manager.mjs'
 
@@ -36,9 +43,14 @@ export function create(baseConfig: NaviosConfig = {}): Navios {
     }
     let res: Response
     try {
-      res = await adapter (finalConfig.url, {
+      res = await adapter(finalConfig.url, {
         ...finalConfig,
-        body: finalConfig.body ?? typeof finalConfig.data === 'object' ? finalConfig.data instanceof FormData ? finalConfig.data : JSON.stringify(finalConfig.data) : finalConfig.data as any
+        body:
+          finalConfig.body ?? typeof finalConfig.data === 'object'
+            ? finalConfig.data instanceof FormData
+              ? finalConfig.data
+              : JSON.stringify(finalConfig.data)
+            : (finalConfig.data as any),
       })
     } catch (err) {
       const error = new Error(
@@ -132,12 +144,19 @@ export const put = navios.put
 export const patch = navios.patch
 export const del = navios.delete
 
-
 // @ts-ignore This is a hack to make the default handler work as a function and as an object
 const defaultHandler: NaviosStatic = navios.request
 
 defaultHandler.create = create
-for (const method of ['get', 'post', 'head', 'options', 'put', 'patch', 'delete']) {
+for (const method of [
+  'get',
+  'post',
+  'head',
+  'options',
+  'put',
+  'patch',
+  'delete',
+]) {
   // @ts-ignore
   defaultHandler[method] = navios[method]
 }
