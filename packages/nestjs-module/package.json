@@ -1,5 +1,5 @@
 {
-  "name": "@navios/angular-module",
+  "name": "@navios/nestjs-module",
   "version": "0.3.0-alpha.0",
   "author": {
     "name": "Oleksandr Hanzha",
@@ -25,9 +25,9 @@
     "navios": "workspace:^"
   },
   "devDependencies": {
-    "@angular/core": "^16.2.11"
+    "@nestjs/common": "^10.2.8"
   },
   "peerDependencies": {
-    "@angular/core": "*"
+    "@nestjs/common": "*"
   }
 }
