@@ -1,3 +1,6 @@
+import type { DynamicModule } from '@nestjs/common'
+import { NaviosModule } from '../navios.module.js'
+
 export interface NaviosFakeAdapter {
   fetch: typeof globalThis.fetch
   mock: (
@@ -5,6 +8,7 @@ export interface NaviosFakeAdapter {
     method: string,
     mock: (input: string, req?: RequestInit) => Response,
   ) => void
+  provider: DynamicModule
 }
 
 export function makeNaviosFakeAdapter(): NaviosFakeAdapter {
@@ -39,5 +43,6 @@ export function makeNaviosFakeAdapter(): NaviosFakeAdapter {
   return {
     fetch,
     mock,
+    provider: NaviosModule.register({ adapter: fetch }),
   }
 }
