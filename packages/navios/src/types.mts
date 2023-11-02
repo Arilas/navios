@@ -61,7 +61,7 @@ export type NaviosOptionsConfig<Params extends {}> = Omit<
   NaviosRequestConfig<void, Params>,
   'method' | 'data' | 'url'
 >
-export type NaxiosPromise<T = any> = Promise<NaviosResponse<T>>
+export type NaviosPromise<T = any> = Promise<NaviosResponse<T>>
 
 export interface Navios {
   create: (baseConfig?: NaviosConfig) => Navios

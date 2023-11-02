@@ -15,6 +15,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@angular/core@npm:^16.2.11":
+  version: 16.2.11
+  resolution: "@angular/core@npm:16.2.11"
+  dependencies:
+    tslib: "npm:^2.3.0"
+  peerDependencies:
+    rxjs: ^6.5.3 || ^7.4.0
+    zone.js: ~0.13.0
+  checksum: a0d96b02841734fe431da20c43363040965274c38cf85a7e2d40a51eab9b5eff32c6a3f4708f6bf1a17a8c683cc117b242283388d2bb7c49455c74060bb33f06
+  languageName: node
+  linkType: hard
+
 "@bcoe/v8-coverage@npm:^0.2.3":
   version: 0.2.3
   resolution: "@bcoe/v8-coverage@npm:0.2.3"
@@ -254,6 +266,17 @@ __metadata:
   checksum: e5045775f076022b6c7cc64a7b55742faa5442301cb3389fd0e6712fafc46a2bb13c68fa1ffaf7b8bb665a91196f050b4115885fc802094ebc06a1cf665935ac
   languageName: node
   linkType: hard
+
+"@navios/angular-module@workspace:packages/angular-module":
+  version: 0.0.0-use.local
+  resolution: "@navios/angular-module@workspace:packages/angular-module"
+  dependencies:
+    "@angular/core": "npm:^16.2.11"
+    navios: "workspace:^"
+  peerDependencies:
+    "@angular/core": "*"
+  languageName: unknown
+  linkType: soft
 
 "@navios/mono@workspace:.":
   version: 0.0.0-use.local
@@ -1602,7 +1625,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"navios@workspace:packages/navios":
+"navios@workspace:^, navios@workspace:packages/navios":
   version: 0.0.0-use.local
   resolution: "navios@workspace:packages/navios"
   languageName: unknown
@@ -2170,6 +2193,13 @@ __metadata:
   version: 3.0.1
   resolution: "totalist@npm:3.0.1"
   checksum: 4bb1fadb69c3edbef91c73ebef9d25b33bbf69afe1e37ce544d5f7d13854cda15e47132f3e0dc4cafe300ddb8578c77c50a65004d8b6e97e77934a69aa924863
+  languageName: node
+  linkType: hard
+
+"tslib@npm:^2.3.0":
+  version: 2.6.2
+  resolution: "tslib@npm:2.6.2"
+  checksum: e03a8a4271152c8b26604ed45535954c0a45296e32445b4b87f8a5abdb2421f40b59b4ca437c4346af0f28179780d604094eb64546bee2019d903d01c6c19bdb
   languageName: node
   linkType: hard
 

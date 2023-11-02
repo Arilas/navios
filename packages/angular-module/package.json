@@ -1,0 +1,33 @@
+{
+  "name": "@navios/angular-module",
+  "version": "0.2.3",
+  "author": {
+    "name": "Oleksandr Hanzha",
+    "email": "alex@granted.name"
+  },
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./testing": {
+      "types": "./lib/testing/index.d.ts",
+      "default": "./lib/testing/index.js"
+    }
+  },
+  "scripts": {
+    "build": "yarn run -T tsc",
+    "prepublish": "yarn build"
+  },
+  "dependencies": {
+    "navios": "workspace:^"
+  },
+  "devDependencies": {
+    "@angular/core": "^16.2.11"
+  },
+  "peerDependencies": {
+    "@angular/core": "*"
+  }
+}
