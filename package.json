@@ -1,23 +1,10 @@
 {
-  "name": "navios",
-  "version": "0.2.3",
-  "author": {
-    "name": "Oleksandr Hanzha",
-    "email": "alex@granted.name"
-  },
-  "license": "MIT",
+  "name": "@navios/mono",
   "packageManager": "yarn@4.0.1",
   "type": "module",
-  "exports": {
-    ".": {
-      "types": "./lib/index.d.mts",
-      "default": "./lib/index.mjs"
-    }
-  },
-  "scripts": {
-    "build": "tsc",
-    "prepublish": "yarn build"
-  },
+  "workspaces": [
+    "packages/*"
+  ],
   "devDependencies": {
     "@vitest/coverage-v8": "^0.34.6",
     "@vitest/ui": "0.34.6",

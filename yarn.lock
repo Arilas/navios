@@ -255,6 +255,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@navios/mono@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@navios/mono@workspace:."
+  dependencies:
+    "@vitest/coverage-v8": "npm:^0.34.6"
+    "@vitest/ui": "npm:0.34.6"
+    prettier: "npm:^3.0.3"
+    typescript: "npm:^5.2.2"
+    vitest: "npm:^0.34.6"
+  languageName: unknown
+  linkType: soft
+
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -1590,15 +1602,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"navios@workspace:.":
+"navios@workspace:packages/navios":
   version: 0.0.0-use.local
-  resolution: "navios@workspace:."
-  dependencies:
-    "@vitest/coverage-v8": "npm:^0.34.6"
-    "@vitest/ui": "npm:0.34.6"
-    prettier: "npm:^3.0.3"
-    typescript: "npm:^5.2.2"
-    vitest: "npm:^0.34.6"
+  resolution: "navios@workspace:packages/navios"
   languageName: unknown
   linkType: soft
 

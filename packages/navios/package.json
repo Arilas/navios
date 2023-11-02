@@ -1,0 +1,20 @@
+{
+  "name": "navios",
+  "version": "0.2.3",
+  "author": {
+    "name": "Oleksandr Hanzha",
+    "email": "alex@granted.name"
+  },
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.mts",
+      "default": "./lib/index.mjs"
+    }
+  },
+  "scripts": {
+    "build": "yarn run -T tsc",
+    "prepublish": "yarn build"
+  }
+}
