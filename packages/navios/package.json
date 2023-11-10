@@ -1,6 +1,6 @@
 {
   "name": "navios",
-  "version": "0.3.0-alpha.0",
+  "version": "0.3.0-alpha.4",
   "author": {
     "name": "Oleksandr Hanzha",
     "email": "alex@granted.name"
@@ -13,6 +13,10 @@
         "default": "./dist/index.mjs"
       },
       "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "default": {
         "types": "./dist/index.d.ts",
         "default": "./dist/index.js"
       }

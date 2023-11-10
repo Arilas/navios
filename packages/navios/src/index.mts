@@ -9,6 +9,27 @@ import type {
 import defaultAdapter from './adapter/native.mjs'
 import { createInterceptorManager } from './interceptors/interceptor.manager.mjs'
 
+function processResponseBody(
+  response: Response,
+  finalConfig: NaviosRequestConfig<any, any>,
+) {
+  switch (finalConfig.responseType) {
+    case 'blob':
+      return response.blob()
+    case 'arrayBuffer':
+      return response.arrayBuffer()
+    case 'formData':
+      return response.formData()
+    case 'stream':
+      return response.body
+    case 'json':
+      return response.json()
+    case 'text':
+    default:
+      return response.text()
+  }
+}
+
 export function create(baseConfig: NaviosConfig = {}): Navios {
   const adapter = baseConfig.adapter || defaultAdapter
   const normalizedBaseConfig = {
@@ -78,10 +99,7 @@ export function create(baseConfig: NaviosConfig = {}): Navios {
       return result as NaviosResponse<Result>
     }
     const response: NaviosResponse<Result> = {
-      data:
-        finalConfig.responseType === 'text'
-          ? await res.text()
-          : await res.json(),
+      data: await processResponseBody(res, finalConfig),
       status: res.status,
       statusText: res.statusText,
       headers: res.headers,

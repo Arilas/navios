@@ -17,7 +17,13 @@ export interface NaviosConfig {
   baseURL?: string
   validateStatus?: (status: number) => boolean
   headers?: { [key: string]: string }
-  responseType?: 'json' | 'text'
+  responseType?:
+    | 'json'
+    | 'text'
+    | 'blob'
+    | 'arrayBuffer'
+    | 'formData'
+    | 'stream'
 }
 export interface NaviosRequestConfig<Data, Params extends {}>
   extends RequestInit {
@@ -28,7 +34,7 @@ export interface NaviosRequestConfig<Data, Params extends {}>
   params?: Params
   data?: Data | FormData | string | undefined
   credentials?: RequestCredentials
-  responseType?: 'json' | 'text'
+  responseType?: NaviosConfig['responseType']
   validateStatus?: (status: number) => boolean
   cancelToken?: AbortSignal
 }
