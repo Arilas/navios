@@ -9,7 +9,12 @@
 # Documentation here: https://yarnpkg.com/features/zero-installs
 #!.yarn/cache
 .pnp.*
-
+node_modules
 lib
 dist
 DS_Store
+.DS_Store
+
+
+.nx/cache
+.angular

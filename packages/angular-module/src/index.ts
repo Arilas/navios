@@ -13,6 +13,6 @@ export {
   type NaviosOptionsConfig,
   type NaviosPromise,
 } from 'navios'
-export * from './navios.module.js'
-export * from './navios.constants.js'
-export * from './navios.service.js'
+export * from './navios.module.mjs'
+export * from './navios.constants.mjs'
+export * from './navios.service.mjs'

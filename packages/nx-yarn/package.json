@@ -1,0 +1,33 @@
+{
+  "name": "@navios/nx-yarn",
+  "version": "1.0.0",
+  "main": "dist/src/index.js",
+  "executors": "./dist/executors.json",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "jest",
+    "copy-files": "cpy './{package.json,README.md,LICENSE,executors.json}' ./dist/ && cpy ./src/**/{*.d.ts,*.json} ./dist",
+    "prepublishOnly": "cd .. && yarn build && yarn copy-files",
+    "prepack": "pinst --disable",
+    "postpack": "pinst --enable"
+  },
+  "dependencies": {
+    "@angular-devkit/schematics": "^17.0.0",
+    "@nrwl/devkit": "^17.1.1",
+    "@nrwl/workspace": "^17.1.1",
+    "tslib": "^2.6.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.9.0",
+    "cpy-cli": "^5.0.0",
+    "nx": "^17.1.1",
+    "pinst": "^3.0.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "yarn@3.2.1"
+}

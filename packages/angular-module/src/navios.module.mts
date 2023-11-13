@@ -1,8 +1,8 @@
 import navios from 'navios'
 
-import type { HttpModuleOptions } from './interfaces/navios-module.interface.js'
-import { NAVIOS_INSTANCE_TOKEN } from './navios.constants.js'
-import { NaviosService } from './navios.service.js'
+import type { HttpModuleOptions } from './interfaces/navios-module.interface.mjs'
+import { NAVIOS_INSTANCE_TOKEN } from './navios.constants.mjs'
+import { NaviosService } from './navios.service.mjs'
 import {
   type EnvironmentProviders,
   type ModuleWithProviders,

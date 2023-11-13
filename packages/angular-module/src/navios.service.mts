@@ -8,15 +8,12 @@ import navios, {
   type Navios,
 } from 'navios'
 
-import { NAVIOS_INSTANCE_TOKEN } from './navios.constants.js'
-import { Inject, Injectable } from '@angular/core'
+import { Injectable, inject } from '@angular/core'
+import { NaviosInjectionToken } from './navios.constants.mjs'
 
 @Injectable()
 export class NaviosService {
-  constructor(
-    @Inject(NAVIOS_INSTANCE_TOKEN)
-    protected readonly instance: Navios = navios,
-  ) {}
+  protected readonly instance: Navios = inject(NaviosInjectionToken)
 
   request<T = any, Data = T, Params extends object = object>(
     config: NaviosRequestConfig<Data, Params>,

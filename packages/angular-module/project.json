@@ -1,0 +1,33 @@
+{
+  "name": "@navios/angular-module",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/angular-module/src",
+  "prefix": "navios",
+  "tags": [],
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "packages/angular-module/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "packages/angular-module/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "packages/angular-module/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "publish": {
+      "executor": "@navios/nx-yarn:publish",
+      "options": {
+        "outputPath": "{workspaceRoot}/dist/{projectRoot}",
+        "access": "public"
+      }
+    }
+  }
+}

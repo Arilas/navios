@@ -1,0 +1,12 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "sourceMap": true,
+    "declaration": true,
+    "moduleResolution": "node16",
+    "target": "ES2022",
+    "module": "Node16",
+    "skipLibCheck": true,
+    "paths": {}
+  }
+}
