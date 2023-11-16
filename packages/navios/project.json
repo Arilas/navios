@@ -19,7 +19,6 @@
         "assets": [
           "packages/navios/*.md",
           "packages/navios/LICENSE",
-          "packages/navios/package.json",
           {
             "input": "./packages/navios/src",
             "glob": "**/!(*.ts)",

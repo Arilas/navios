@@ -11,7 +11,7 @@
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
         "main": {
-          "main": "{projectRoot}/src/index.mts",
+          "index": "{projectRoot}/src/index.mts",
           "testing": "{projectRoot}/src/testing/index.mts"
         },
         "outputPath": "{workspaceRoot}/dist/{projectRoot}",
@@ -23,7 +23,6 @@
         "assets": [
           "packages/nestjs-module/*.md",
           "packages/nestjs-module/LICENSE",
-          "packages/nestjs-module/package.json",
           {
             "input": "./packages/nestjs-module/src",
             "glob": "**/!(*.ts)",

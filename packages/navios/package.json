@@ -13,11 +13,11 @@
     ".": {
       "import": {
         "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
+        "default": "./src/index.mts"
       },
       "require": {
         "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
+        "default": "./src/index.mts"
       }
     }
   },

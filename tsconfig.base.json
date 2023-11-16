@@ -7,6 +7,8 @@
     "target": "ES2022",
     "module": "Node16",
     "skipLibCheck": true,
-    "paths": {}
+    "paths": {
+      "navios": ["./packages/navios/src/index.mts"]
+    }
   }
 }
