@@ -12,7 +12,7 @@ import navios, {
   type Navios,
 } from 'navios'
 
-import { NAVIOS_INSTANCE_TOKEN } from './navios.constants.js'
+import { NAVIOS_INSTANCE_TOKEN } from './navios.constants.mjs'
 
 export class NaviosService {
   constructor(

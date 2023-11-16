@@ -7,13 +7,13 @@ import type {
   HttpModuleAsyncOptions,
   HttpModuleOptions,
   HttpModuleOptionsFactory,
-} from './interfaces/navios-module.interface.js'
+} from './interfaces/navios-module.interface.mjs'
 import {
   NAVIOS_INSTANCE_TOKEN,
   NAVIOS_MODULE_ID,
   NAVIOS_MODULE_OPTIONS,
-} from './navios.constants.js'
-import { NaviosService } from './navios.service.js'
+} from './navios.constants.mjs'
+import { NaviosService } from './navios.service.mjs'
 
 @Module({
   providers: [

@@ -23,7 +23,7 @@
       "defaultConfiguration": "production"
     },
     "publish": {
-      "executor": "@navios/nx-yarn:publish",
+      "executor": "nx-yarn-publish:publish",
       "options": {
         "outputPath": "{workspaceRoot}/dist/{projectRoot}",
         "access": "public"

@@ -15,6 +15,6 @@ dist
 DS_Store
 .DS_Store
 
-
+tmp
 .nx/cache
 .angular

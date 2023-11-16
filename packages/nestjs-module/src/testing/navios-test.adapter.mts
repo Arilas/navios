@@ -1,5 +1,5 @@
 import type { DynamicModule } from '@nestjs/common'
-import { NaviosModule } from '../navios.module.js'
+import { NaviosModule } from '../navios.module.mjs'
 
 export interface NaviosFakeAdapter {
   fetch: typeof globalThis.fetch
@@ -16,6 +16,7 @@ export function makeNaviosFakeAdapter(): NaviosFakeAdapter {
     string,
     Map<string, (input: string, req?: RequestInit) => Response>
   >()
+  // @ts-ignore TS2322
   const fetch: typeof globalThis.fetch = async (
     input: RequestInfo | URL,
     init?: RequestInit,

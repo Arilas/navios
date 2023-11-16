@@ -21,24 +21,7 @@
       }
     }
   },
-  "scripts": {
-    "build": "tsup",
-    "prepublish": "yarn build"
-  },
   "devDependencies": {
-    "tsup": "^7.2.0",
     "typescript": "^5.2.2"
-  },
-  "tsup": {
-    "entry": [
-      "./src/index.mts"
-    ],
-    "sourcemap": true,
-    "dts": true,
-    "format": [
-      "cjs",
-      "esm"
-    ],
-    "clean": true
   }
 }

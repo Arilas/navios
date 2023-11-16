@@ -1,12 +1,12 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "./lib",
     "incremental": false,
-    "rootDir": ".",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "verbatimModuleSyntax": false
+    "paths": {
+      "navios": ["../navios/src/index.mts"]
+    }
   },
   "include": ["src/**/*"]
 }
