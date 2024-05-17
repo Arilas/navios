@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { makeNaviosFakeAdapter } from 'navios/testing'
-import { createAPI } from '../index.mjs'
+import { createAPI } from '../createAPI.mjs'
 import { z } from 'zod'
 
 describe('navios-zod', () => {
@@ -12,29 +12,19 @@ describe('navios-zod', () => {
       () => new Response(JSON.stringify({ data: 'test' })),
     )
     const api = createAPI({ baseURL: '/api', adapter: adapter.fetch })
-    const request = z.object({
-      foo: z.string(),
-      bar: z.coerce.number(),
+    const getTest = api.declareEndpoint({
+      method: 'GET',
+      url: '/test',
+      responseSchema: z.object({ data: z.string() }),
     })
-    const getTest = api.declareEndpoint(
-      'GET',
-      '/test',
-      z.object({ data: z.string() }),
-      request,
-    )
-    const result = await getTest({
-      data: {
-        foo: 'foo',
-        bar: 42,
-      },
-    })
+    const result = await getTest()
     expect(result).toEqual({ data: 'test' })
   })
 
   it('should work with descriminators', async () => {
     const adapter = makeNaviosFakeAdapter()
     let sentSuccess = false
-    adapter.mock('/api/test', 'GET', () => {
+    adapter.mock('/api/test', 'POST', () => {
       if (!sentSuccess) {
         sentSuccess = true
         return new Response(JSON.stringify({ content: 'test' }))
@@ -67,12 +57,17 @@ describe('navios-zod', () => {
         }),
       }),
     ])
-    const getTest = api.declareEndpoint(
-      'GET',
-      '/test',
-      descrimintatedSchema,
-      request,
-    )
+    const getTest = api.declareEndpoint({
+      method: 'POST',
+      url: '/test',
+      responseSchema: descrimintatedSchema,
+      requestSchema: request,
+    })
+    const a = api.declareEndpoint({
+      method: 'POST',
+      responseSchema: descrimintatedSchema,
+      url: '/test',
+    })
     const result = await getTest({
       data: {
         foo: 'foo',
