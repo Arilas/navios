@@ -1,17 +1,17 @@
-export {
-  type Navios,
-  type NaviosResponse,
-  type NaviosError,
-  type NaviosConfig,
-  type NaviosRequestConfig,
-  type NaviosGetConfig,
-  type NaviosPostConfig,
-  type NaviosPutConfig,
-  type NaviosDeleteConfig,
-  type NaviosPatchConfig,
-  type NaviosHeadConfig,
-  type NaviosOptionsConfig,
-  type NaviosPromise,
+export type {
+  Navios,
+  NaviosResponse,
+  NaviosError,
+  NaviosConfig,
+  NaviosRequestConfig,
+  NaviosGetConfig,
+  NaviosPostConfig,
+  NaviosPutConfig,
+  NaviosDeleteConfig,
+  NaviosPatchConfig,
+  NaviosHeadConfig,
+  NaviosOptionsConfig,
+  NaviosPromise,
 } from 'navios'
 
 export * from './navios.module.mjs'

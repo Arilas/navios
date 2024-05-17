@@ -1,5 +1,23 @@
 {
   "semi": false,
   "singleQuote": true,
+  "plugins": ["@ianvs/prettier-plugin-sort-imports"],
+  "importOrder": [
+    "<TYPES>",
+    "",
+    "<BUILTIN_MODULES>",
+    "",
+    "^navios",
+    "",
+    "^@navios/(.*)$",
+    "",
+    "<THIRD_PARTY_MODULES>",
+    "",
+    "<TYPES>^[.]",
+    "",
+    "^[.]"
+  ],
+  "importOrderParserPlugins": ["typescript", "decorators-legacy"],
+
   "trailingComma": "all"
 }

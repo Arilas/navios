@@ -1,4 +1,5 @@
-import { type NaviosStatic } from './types.mjs'
+import type { NaviosStatic } from './types.mjs'
+
 import { create } from './createNavios.mjs'
 
 const navios = create()

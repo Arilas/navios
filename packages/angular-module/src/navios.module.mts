@@ -1,14 +1,13 @@
+import type { EnvironmentProviders, ModuleWithProviders } from '@angular/core'
+
 import navios from 'navios'
 
+import { makeEnvironmentProviders, NgModule } from '@angular/core'
+
 import type { HttpModuleOptions } from './interfaces/navios-module.interface.mjs'
+
 import { NAVIOS_INSTANCE_TOKEN } from './navios.constants.mjs'
 import { NaviosService } from './navios.service.mjs'
-import {
-  type EnvironmentProviders,
-  type ModuleWithProviders,
-  NgModule,
-  makeEnvironmentProviders,
-} from '@angular/core'
 
 @NgModule({
   providers: [

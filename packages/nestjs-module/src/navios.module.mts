@@ -1,13 +1,16 @@
-import { type DynamicModule, Module, type Provider } from '@nestjs/common'
-import { randomStringGenerator } from '@nestjs/common/utils/random-string-generator.util.js'
+import type { DynamicModule, Provider } from '@nestjs/common'
 
 import navios from 'navios'
+
+import { Module } from '@nestjs/common'
+import { randomStringGenerator } from '@nestjs/common/utils/random-string-generator.util.js'
 
 import type {
   HttpModuleAsyncOptions,
   HttpModuleOptions,
   HttpModuleOptionsFactory,
 } from './interfaces/navios-module.interface.mjs'
+
 import {
   NAVIOS_INSTANCE_TOKEN,
   NAVIOS_MODULE_ID,

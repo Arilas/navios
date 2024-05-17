@@ -1,16 +1,18 @@
-import { Inject } from '@nestjs/common'
-
-import navios, {
-  type NaviosDeleteConfig,
-  type NaviosGetConfig,
-  type NaviosPatchConfig,
-  type NaviosHeadConfig,
-  type NaviosPostConfig,
-  type NaviosPutConfig,
-  type NaviosRequestConfig,
-  type NaviosResponse,
-  type Navios,
+import type {
+  Navios,
+  NaviosDeleteConfig,
+  NaviosGetConfig,
+  NaviosHeadConfig,
+  NaviosPatchConfig,
+  NaviosPostConfig,
+  NaviosPutConfig,
+  NaviosRequestConfig,
+  NaviosResponse,
 } from 'navios'
+
+import navios from 'navios'
+
+import { Inject } from '@nestjs/common'
 
 import { NAVIOS_INSTANCE_TOKEN } from './navios.constants.mjs'
 

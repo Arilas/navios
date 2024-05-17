@@ -111,7 +111,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:^7.11.6, @babel/core@npm:^7.12.3, @babel/core@npm:^7.23.2, @babel/core@npm:^7.24.5":
+"@babel/core@npm:^7.11.6, @babel/core@npm:^7.12.3, @babel/core@npm:^7.23.2, @babel/core@npm:^7.24.0, @babel/core@npm:^7.24.5":
   version: 7.24.5
   resolution: "@babel/core@npm:7.24.5"
   dependencies:
@@ -1486,7 +1486,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/traverse@npm:^7.16.0, @babel/traverse@npm:^7.23.9, @babel/traverse@npm:^7.24.5":
+"@babel/traverse@npm:^7.16.0, @babel/traverse@npm:^7.23.9, @babel/traverse@npm:^7.24.0, @babel/traverse@npm:^7.24.5":
   version: 7.24.5
   resolution: "@babel/traverse@npm:7.24.5"
   dependencies:
@@ -2531,6 +2531,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ianvs/prettier-plugin-sort-imports@npm:^4.2.1":
+  version: 4.2.1
+  resolution: "@ianvs/prettier-plugin-sort-imports@npm:4.2.1"
+  dependencies:
+    "@babel/core": "npm:^7.24.0"
+    "@babel/generator": "npm:^7.23.6"
+    "@babel/parser": "npm:^7.24.0"
+    "@babel/traverse": "npm:^7.24.0"
+    "@babel/types": "npm:^7.24.0"
+    semver: "npm:^7.5.2"
+  peerDependencies:
+    "@vue/compiler-sfc": 2.7.x || 3.x
+    prettier: 2 || 3
+  peerDependenciesMeta:
+    "@vue/compiler-sfc":
+      optional: true
+  checksum: 10c0/76e5c79a72ca35e03f52059d039a037b2a29224582aca6590ba08a17d85e5143673bee301d3a9cc2e0257570801e6d0ec30ffd01e1f5f0d973a986c6c359f9a8
+  languageName: node
+  linkType: hard
+
 "@isaacs/cliui@npm:^8.0.2":
   version: 8.0.2
   resolution: "@isaacs/cliui@npm:8.0.2"
@@ -2851,6 +2871,7 @@ __metadata:
     "@angular/compiler-cli": "npm:^17.3.9"
     "@angular/core": "npm:^17.3.9"
     "@babel/core": "npm:^7.24.5"
+    "@ianvs/prettier-plugin-sort-imports": "npm:^4.2.1"
     "@nx/angular": "npm:19.0.4"
     "@nx/esbuild": "npm:19.0.4"
     "@nx/jest": "npm:19.0.4"
@@ -13031,7 +13052,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:^7.0.0, semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.8, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.6.0":
+"semver@npm:^7.0.0, semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.8, semver@npm:^7.5.2, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.6.0":
   version: 7.6.2
   resolution: "semver@npm:7.6.2"
   bin:

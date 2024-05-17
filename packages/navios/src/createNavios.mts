@@ -1,12 +1,13 @@
-import {
-  type NaviosConfig,
-  type Navios,
-  type NaviosRequestConfig,
-  type NaviosResponse,
+import type {
+  Navios,
+  NaviosConfig,
+  NaviosRequestConfig,
+  NaviosResponse,
 } from './types.mjs'
-import { NaviosError } from './NaviosError.mjs'
+
 import defaultAdapter from './adapter/native.mjs'
 import { createInterceptorManager } from './interceptors/interceptor.manager.mjs'
+import { NaviosError } from './NaviosError.mjs'
 import { processResponseBody } from './utils/processResponseBody.mjs'
 
 export function create(baseConfig: NaviosConfig = {}): Navios {

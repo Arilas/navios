@@ -1,14 +1,15 @@
-import { NaviosError, type HttpMethod, type NaviosRequestConfig } from 'navios'
+import type { HttpMethod, Navios, NaviosRequestConfig } from 'navios'
 import type { AnyZodObject, z } from 'zod'
+
 import type {
-  APIConfig,
   DeclareAPIConfig,
   EndpointConfig,
   EndpointResponseSchema,
   EndpointWithDataConfig,
   NaviosZodRequest,
 } from './types.mjs'
-import type { Navios } from 'navios'
+
+import { NaviosError } from 'navios'
 
 export function declareAPI(config: DeclareAPIConfig = {}) {
   let client: Navios | null = null

@@ -1,14 +1,15 @@
-import navios, {
-  type NaviosDeleteConfig,
-  type NaviosGetConfig,
-  type NaviosPatchConfig,
-  type NaviosPutConfig,
-  type NaviosRequestConfig,
-  type NaviosResponse,
-  type Navios,
+import type {
+  Navios,
+  NaviosDeleteConfig,
+  NaviosGetConfig,
+  NaviosPatchConfig,
+  NaviosPutConfig,
+  NaviosRequestConfig,
+  NaviosResponse,
 } from 'navios'
 
-import { Injectable, inject } from '@angular/core'
+import { inject, Injectable } from '@angular/core'
+
 import { NaviosInjectionToken } from './navios.constants.mjs'
 
 @Injectable()

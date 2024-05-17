@@ -1,5 +1,5 @@
-import type { NaviosResponse } from '../../types.mjs'
 import type { NaviosError } from '../../NaviosError.mjs'
+import type { NaviosResponse } from '../../types.mjs'
 
 export function jsonResponseInterceptor(response: NaviosResponse<any>) {
   const contentType = response.headers.get('content-type')

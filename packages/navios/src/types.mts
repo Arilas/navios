@@ -1,5 +1,5 @@
-import { NaviosError } from './NaviosError.mjs'
 import defaultAdapter from './adapter/native.mjs'
+import { NaviosError } from './NaviosError.mjs'
 
 export interface NaviosResponse<T> {
   data: T

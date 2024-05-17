@@ -1,4 +1,5 @@
 import type { DynamicModule } from '@nestjs/common'
+
 import { NaviosModule } from '../navios.module.mjs'
 
 export interface NaviosFakeAdapter {

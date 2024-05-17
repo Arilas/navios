@@ -1,4 +1,4 @@
-import { type NaviosRequestConfig } from '../types.mjs'
+import type { NaviosRequestConfig } from '../types.mjs'
 
 export function processResponseBody(
   response: Response,

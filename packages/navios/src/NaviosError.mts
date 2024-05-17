@@ -1,4 +1,4 @@
-import type { NaviosResponse, NaviosRequestConfig } from './types.mjs'
+import type { NaviosRequestConfig, NaviosResponse } from './types.mjs'
 
 export class NaviosError<T> extends Error {
   response: NaviosResponse<T>

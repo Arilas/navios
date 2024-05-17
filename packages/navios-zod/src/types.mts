@@ -1,6 +1,5 @@
-import { type HttpMethod, type NaviosConfig } from 'navios'
-import type { Z } from 'vitest/dist/reporters-yx5ZTtEV.js'
-import type { AnyZodObject, ZodDiscriminatedUnion, z } from 'zod'
+import type { HttpMethod, NaviosConfig } from 'navios'
+import type { AnyZodObject, z, ZodDiscriminatedUnion } from 'zod'
 
 export interface DeclareAPIConfig {
   /**

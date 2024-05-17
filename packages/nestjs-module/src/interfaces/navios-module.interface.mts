@@ -1,5 +1,4 @@
 import type { ModuleMetadata, Provider, Type } from '@nestjs/common'
-
 import type {
   Navios,
   NaviosConfig,

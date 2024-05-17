@@ -1,5 +1,6 @@
-import type { NaviosRequestConfig, NaviosResponse } from '../types.mjs'
 import type { NaviosError } from '../NaviosError.mjs'
+import type { NaviosRequestConfig, NaviosResponse } from '../types.mjs'
+
 import {
   jsonErrorInterceptor,
   jsonResponseInterceptor,
