@@ -16,27 +16,27 @@ import { NaviosInjectionToken } from './navios.constants.mjs'
 export class NaviosService {
   protected readonly instance: Navios = inject(NaviosInjectionToken)
 
-  request<T = any, Data = T, Params extends object = object>(
+  request<T = any, Data = T, Params extends Record<string, string> = {}>(
     config: NaviosRequestConfig<Data, Params>,
   ): Promise<NaviosResponse<T>> {
     return this.instance.request<T, Data>(config)
   }
 
-  get<T = any, Params extends object = object>(
+  get<T = any, Params extends Record<string, string> = {}>(
     url: string,
     config?: NaviosGetConfig<Params>,
   ): Promise<NaviosResponse<T>> {
     return this.instance.get(url, config)
   }
 
-  delete<T = any, Params extends object = object>(
+  delete<T = any, Params extends Record<string, string> = {}>(
     url: string,
     config?: NaviosDeleteConfig<Params>,
   ): Promise<NaviosResponse<T>> {
     return this.instance.delete(url, config)
   }
 
-  post<T = any, Data = T, Params extends object = object>(
+  post<T = any, Data = T, Params extends Record<string, string> = {}>(
     url: string,
     data?: any,
     config?: NaviosRequestConfig<Data, Params>,
@@ -44,7 +44,7 @@ export class NaviosService {
     return this.instance.post(url, data, config)
   }
 
-  put<T = any, Data = T, Params extends object = object>(
+  put<T = any, Data = T, Params extends Record<string, string> = {}>(
     url: string,
     data?: any,
     config?: NaviosPutConfig<Data, Params>,
@@ -52,7 +52,7 @@ export class NaviosService {
     return this.instance.put(url, data, config)
   }
 
-  patch<T = any, Data = T, Params extends object = object>(
+  patch<T = any, Data = T, Params extends Record<string, string> = {}>(
     url: string,
     data?: any,
     config?: NaviosPatchConfig<Data, Params>,
