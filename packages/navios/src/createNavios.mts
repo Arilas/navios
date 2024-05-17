@@ -3,6 +3,7 @@ import type {
   NaviosConfig,
   NaviosRequestConfig,
   NaviosResponse,
+  PreparedRequestConfig,
 } from './types.mjs'
 
 import defaultAdapter from './adapter/native.mjs'
@@ -11,21 +12,58 @@ import { NaviosError } from './NaviosError.mjs'
 import { processResponseBody } from './utils/processResponseBody.mjs'
 
 export function create(baseConfig: NaviosConfig = {}): Navios {
-  const adapter = baseConfig.adapter || defaultAdapter
-  const normalizedBaseConfig = {
-    baseURL: baseConfig.baseURL || '',
-    validateStatus: (status: number) => {
-      return status >= 200 && status < 300 // default
-    },
-    headers: baseConfig.headers || {},
-    responseType: baseConfig.responseType || 'json',
+  const adapter = baseConfig.adapter ?? defaultAdapter
+  const normalizedBaseConfig: Omit<Required<NaviosConfig>, 'adapter'> = {
+    baseURL: baseConfig.baseURL ?? '',
+    validateStatus:
+      baseConfig.validateStatus ??
+      ((status: number) => {
+        return status >= 200 && status < 300 // default
+      }),
+    headers: baseConfig.headers ?? {},
+    responseType: baseConfig.responseType ?? 'json',
+    FormData: baseConfig.FormData ?? FormData,
+    URLSearchParams: baseConfig.URLSearchParams ?? URLSearchParams,
   }
   const hooks = createInterceptorManager()
 
-  async function request<Result, Data = Result, Params extends {} = {}>(
-    config: NaviosRequestConfig<Data, Params>,
+  function tryRecoverFromError(
+    err: unknown,
+    config: PreparedRequestConfig<any, any>,
+    type: 'request' | 'response',
+    response: NaviosResponse<any> | null = null,
   ) {
-    let finalConfig: Required<NaviosRequestConfig<Data, Params>> = {
+    const error = new NaviosError(
+      (err as Error)?.message ?? 'Unknown error',
+      response,
+      config,
+    )
+    let isFixed = false
+    let result: NaviosError<any> | NaviosResponse<any> = error
+    for (const interceptor of hooks.interceptors[type].rejected.values()) {
+      if (!isFixed) {
+        try {
+          result = interceptor(result as NaviosError<any>)
+          isFixed = true
+          break
+        } catch (err) {
+          result = err as NaviosError<any>
+          result.config = config
+        }
+      }
+    }
+    if (!isFixed) {
+      throw result
+    }
+    return result as NaviosResponse<any>
+  }
+
+  async function request<
+    Result,
+    Data = Result,
+    Params extends Record<string, string | number> = {},
+  >(config: NaviosRequestConfig<Data, Params>) {
+    let finalConfig: PreparedRequestConfig<Data, Params> = {
       method: 'GET',
       // @ts-ignore
       params: {},
@@ -44,41 +82,13 @@ export function create(baseConfig: NaviosConfig = {}): Navios {
     }
     let res: Response
     try {
-      res = await adapter(finalConfig.url, {
-        ...finalConfig,
-        body:
-          finalConfig.body ?? typeof finalConfig.data === 'object'
-            ? finalConfig.data instanceof FormData
-              ? finalConfig.data
-              : JSON.stringify(finalConfig.data)
-            : (finalConfig.data as any),
-      })
+      res = await adapter(finalConfig.url, finalConfig)
     } catch (err) {
-      const error = new NaviosError(
-        // @ts-ignore TODO: fix this
-        (err || {})?.message as string,
-        {} as NaviosResponse<Result>,
+      return tryRecoverFromError(
+        err,
         finalConfig,
-      ) as NaviosError<Result>
-      error.config = finalConfig
-      let isFixed = false
-      let result: NaviosError<Result> | NaviosResponse<Result> = error
-      for (const interceptor of hooks.interceptors.request.rejected.values()) {
-        if (!isFixed) {
-          try {
-            result = await interceptor(result as NaviosError<Result>)
-            isFixed = true
-            break
-          } catch (err) {
-            result = err as NaviosError<Result>
-            result.config = finalConfig
-          }
-        }
-      }
-      if (!isFixed) {
-        throw result
-      }
-      return result as NaviosResponse<Result>
+        'request',
+      ) as NaviosResponse<Result>
     }
     const response: NaviosResponse<Result> = {
       data: await processResponseBody(res, finalConfig),
@@ -93,28 +103,12 @@ export function create(baseConfig: NaviosConfig = {}): Navios {
       }
       return response as NaviosResponse<Result>
     }
-    const error = new NaviosError(response.statusText, response, finalConfig)
-    error.response = response
-    error.config = finalConfig
-
-    let result: NaviosError<Result> | NaviosResponse<Result> = error
-    let isFixed = false
-    for (const interceptor of hooks.interceptors.response.rejected.values()) {
-      if (!isFixed) {
-        try {
-          result = await interceptor(result as NaviosError<Result>)
-          isFixed = true
-          break
-        } catch (err) {
-          result = err as NaviosError<Result>
-          result.config = finalConfig
-        }
-      }
-    }
-    if (!isFixed) {
-      throw result
-    }
-    return result as NaviosResponse<Result>
+    return tryRecoverFromError(
+      new Error(`Request failed with status code ${response.statusText}`),
+      finalConfig,
+      'response',
+      response,
+    ) as NaviosResponse<Result>
   }
   return {
     create,

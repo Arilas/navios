@@ -1,6 +1,7 @@
 import type { NaviosError } from '../NaviosError.mjs'
-import type { NaviosRequestConfig, NaviosResponse } from '../types.mjs'
+import type { NaviosResponse, PreparedRequestConfig } from '../types.mjs'
 
+import { bodyRequestInterceptor } from './default/body.request.interceptor.mjs'
 import {
   jsonErrorInterceptor,
   jsonResponseInterceptor,
@@ -9,7 +10,7 @@ import { paramsRequestInterceptor } from './default/params.request.interceptor.m
 
 export const defaultInterceptors = {
   request: {
-    init: [paramsRequestInterceptor],
+    init: [paramsRequestInterceptor, bodyRequestInterceptor],
     rejected: [],
   },
   response: {
@@ -22,7 +23,7 @@ export function createInterceptorManager() {
   let id = 0
   const initRequestInterceptors: Map<
     number,
-    (config: NaviosRequestConfig<any, any>) => any
+    (config: PreparedRequestConfig<any, any>) => any
   > = new Map()
   const successResponseInterceptors: Map<
     number,
@@ -38,7 +39,7 @@ export function createInterceptorManager() {
   > = new Map()
 
   function useRequestInterceptor(
-    handler: null | ((onInit: NaviosRequestConfig<any, any>) => any),
+    handler: null | ((onInit: PreparedRequestConfig<any, any>) => any),
     onRejected?: (config: NaviosError<any>) => any,
   ) {
     id++

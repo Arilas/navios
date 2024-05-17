@@ -20,6 +20,8 @@ export interface NaviosConfig {
     | 'arrayBuffer'
     | 'formData'
     | 'stream'
+  FormData?: any
+  URLSearchParams?: any
 }
 
 export type HttpMethod =
@@ -31,8 +33,10 @@ export type HttpMethod =
   | 'HEAD'
   | 'OPTIONS'
 
-export interface NaviosRequestConfig<Data, Params extends {}>
-  extends RequestInit {
+export interface NaviosRequestConfig<
+  Data,
+  Params extends Record<string, string | number> | URLSearchParams,
+> extends RequestInit {
   url?: string
   method?: HttpMethod
   baseURL?: string
@@ -43,6 +47,18 @@ export interface NaviosRequestConfig<Data, Params extends {}>
   responseType?: NaviosConfig['responseType']
   validateStatus?: (status: number) => boolean
   cancelToken?: AbortSignal
+}
+
+export interface PreparedRequestConfig<
+  Data,
+  Params extends Record<string, string | number>,
+> extends NaviosRequestConfig<Data, Params> {
+  method: HttpMethod
+  url: string
+  headers: Record<string, string>
+  validateStatus: (status: number) => boolean
+  FormData: any
+  URLSearchParams: any
 }
 
 export type NaviosGetConfig<Params extends {}> = Omit<
