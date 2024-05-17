@@ -132,7 +132,7 @@ export interface Navios {
     request: {
       use: (
         onInit: (onInit: NaviosRequestConfig<any, any>) => any,
-        onRejected?: (config: NaviosError<any>) => any,
+        onRejected?: (config: NaviosError) => any,
       ) => number
       eject: (id: number) => void
       clear: () => void
@@ -140,7 +140,7 @@ export interface Navios {
     response: {
       use: (
         onSuccess: (response: NaviosResponse<any>) => any,
-        onRejected?: (error: NaviosError<any>) => any,
+        onRejected?: (error: NaviosError) => any,
       ) => number
       eject: (id: number) => void
       clear: () => void

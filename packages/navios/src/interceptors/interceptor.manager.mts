@@ -1,4 +1,4 @@
-import type { NaviosError } from '../NaviosError.mjs'
+import type { NaviosError, NaviosInternalError } from '../NaviosError.mjs'
 import type { NaviosResponse, PreparedRequestConfig } from '../types.mjs'
 
 import { bodyRequestInterceptor } from './default/body.request.interceptor.mjs'
@@ -31,16 +31,16 @@ export function createInterceptorManager() {
   > = new Map()
   const rejectedRequestInterceptors: Map<
     number,
-    (response: NaviosError<any>) => any
+    (response: NaviosInternalError) => any
   > = new Map()
   const rejectedResponseInterceptors: Map<
     number,
-    (response: NaviosError<any>) => any
+    (response: NaviosInternalError) => any
   > = new Map()
 
   function useRequestInterceptor(
     handler: null | ((onInit: PreparedRequestConfig<any, any>) => any),
-    onRejected?: (config: NaviosError<any>) => any,
+    onRejected?: (config: NaviosInternalError) => any,
   ) {
     id++
     if (handler) {
@@ -54,7 +54,7 @@ export function createInterceptorManager() {
 
   function useResponseInterceptor(
     onSuccess: null | ((response: NaviosResponse<any>) => any),
-    onReject?: (response: NaviosError<any>) => any,
+    onReject?: (response: NaviosInternalError) => any,
   ) {
     id++
     if (onSuccess) {

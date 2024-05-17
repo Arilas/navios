@@ -1,6 +1,8 @@
 import type { HttpMethod, Navios, NaviosRequestConfig } from 'navios'
 import type { AnyZodObject, z } from 'zod'
 
+import { NaviosError } from 'navios'
+
 import type {
   DeclareAPIConfig,
   EndpointConfig,
@@ -8,8 +10,6 @@ import type {
   EndpointWithDataConfig,
   NaviosZodRequest,
 } from './types.mjs'
-
-import { NaviosError } from 'navios'
 
 export function declareAPI(config: DeclareAPIConfig = {}) {
   let client: Navios | null = null
@@ -54,7 +54,7 @@ export function declareAPI(config: DeclareAPIConfig = {}) {
         if (!config.useDiscriminatorResponse) {
           throw error
         }
-        if (error instanceof NaviosError) {
+        if (error instanceof NaviosError && error.response) {
           if (config.useWholeResponse) {
             return responseSchema.parse(error.response)
           }

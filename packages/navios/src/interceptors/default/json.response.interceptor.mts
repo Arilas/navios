@@ -1,5 +1,6 @@
-import type { NaviosError } from '../../NaviosError.mjs'
 import type { NaviosResponse } from '../../types.mjs'
+
+import { NaviosError, NaviosInternalError } from '../../NaviosError.mjs'
 
 export function jsonResponseInterceptor(response: NaviosResponse<any>) {
   const contentType = response.headers.get('content-type')
@@ -16,20 +17,33 @@ export function jsonResponseInterceptor(response: NaviosResponse<any>) {
   return response
 }
 
-export function jsonErrorInterceptor(err: NaviosError<any>) {
-  const contentType = err.response?.headers.get('content-type')
-  if (
-    contentType &&
-    contentType.includes('application/json') &&
-    typeof err.response?.data === 'string'
-  ) {
-    throw {
-      ...err,
-      response: {
-        ...err.response,
-        data: JSON.parse(err.response.data),
+export async function jsonErrorInterceptor(err: NaviosInternalError) {
+  if (!err.response || !(err.response instanceof Response)) {
+    throw err
+  }
+  const contentType = err.response.headers.get('content-type')
+  if (contentType && contentType.includes('application/json')) {
+    throw new NaviosError(
+      err.message,
+      {
+        headers: err.response.headers,
+        status: err.response.status ?? 418,
+        statusText: err.response.statusText ?? "I'm a teapot",
+        data: await err.response.json(),
+      } satisfies NaviosResponse<any>,
+      err.config,
+    )
+  } else {
+    throw new NaviosError(
+      err.message,
+      {
+        headers: err.response.headers,
+        status: err.response.status ?? 418,
+        statusText: err.response.statusText ?? "I'm a teapot",
+        data: await err.response.text(),
       },
-    }
+      err.config,
+    )
   }
   throw err
 }

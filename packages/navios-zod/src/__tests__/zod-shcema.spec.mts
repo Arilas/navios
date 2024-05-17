@@ -1,7 +1,9 @@
-import { describe, expect, it } from 'vitest'
 import { makeNaviosFakeAdapter } from 'navios/testing'
-import { createAPI } from '../createAPI.mjs'
+
+import { describe, expect, it } from 'vitest'
 import { z } from 'zod'
+
+import { createAPI } from '../createAPI.mjs'
 
 describe('navios-zod', () => {
   it('should parse the response', async () => {
@@ -31,6 +33,7 @@ describe('navios-zod', () => {
       }
       return new Response(JSON.stringify({ error: 'test' }), {
         status: 400,
+        headers: { 'content-type': 'application/json' },
       })
     })
     const api = createAPI({
