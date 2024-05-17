@@ -1,5 +1,5 @@
 {
-  "name": "navios",
+  "name": "@navios/navios-zod",
   "version": "0.3.0",
   "author": {
     "name": "Oleksandr Hanzha",
@@ -9,6 +9,10 @@
   "typings": "./dist/index.d.ts",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
+  "peerDependencies": {
+    "navios": "workspace:*",
+    "zod": "^3.23.8"
+  },
   "exports": {
     ".": {
       "import": {
@@ -19,19 +23,10 @@
         "types": "./dist/index.d.ts",
         "default": "./src/index.mts"
       }
-    },
-    "./testing": {
-      "import": {
-        "types": "./dist/testing/index.d.mts",
-        "default": "./src/testing/index.mts"
-      },
-      "require": {
-        "types": "./dist/testing/index.d.ts",
-        "default": "./src/testing/index.mts"
-      }
     }
   },
   "devDependencies": {
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "zod": "^3.23.8"
   }
 }

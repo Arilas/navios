@@ -1,3 +1,4 @@
+import { NaviosError } from './NaviosError.mjs'
 import defaultAdapter from './adapter/native.mjs'
 
 export interface NaviosResponse<T> {
@@ -5,11 +6,6 @@ export interface NaviosResponse<T> {
   status: number
   statusText: string
   headers: Headers
-}
-
-export interface NaviosError<T> extends Error {
-  response: NaviosResponse<T>
-  config: NaviosRequestConfig<any, any>
 }
 
 export interface NaviosConfig {
@@ -25,10 +21,20 @@ export interface NaviosConfig {
     | 'formData'
     | 'stream'
 }
+
+export type HttpMethod =
+  | 'GET'
+  | 'POST'
+  | 'PUT'
+  | 'DELETE'
+  | 'PATCH'
+  | 'HEAD'
+  | 'OPTIONS'
+
 export interface NaviosRequestConfig<Data, Params extends {}>
   extends RequestInit {
   url?: string
-  method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'HEAD' | 'OPTIONS'
+  method?: HttpMethod
   baseURL?: string
   headers?: any
   params?: Params

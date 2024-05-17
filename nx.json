@@ -36,5 +36,6 @@
     "@nx/angular:component": {
       "style": "none"
     }
-  }
+  },
+  "nxCloudAccessToken": "Njg4ODUwNjMtNmU2NC00MTI1LWI2YTEtMGQwODljMDgzNmNlfHJlYWQtd3JpdGU="
 }
