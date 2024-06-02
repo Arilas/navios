@@ -23,7 +23,13 @@ export function paramsRequestInterceptor(
       continue
     }
     if (typeof value === 'object') {
-      params.append(key, JSON.stringify(value))
+      if ('toISOString' in value && typeof value.toISOString === 'function') {
+        params.append(key, value.toISOString())
+      } else if ('toJSON' in value && typeof value.toJSON === 'function') {
+        params.append(key, value.toJSON())
+      } else {
+        params.append(key, JSON.stringify(value))
+      }
       continue
     }
     // @ts-ignore

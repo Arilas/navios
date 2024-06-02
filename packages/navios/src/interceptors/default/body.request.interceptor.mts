@@ -13,9 +13,10 @@ export function bodyRequestInterceptor(
   if (!data) {
     return config
   }
-  if (data instanceof config.FormData) {
+  if (data instanceof config.FormData || data instanceof FormData) {
     return {
       ...config,
+      body: data,
       headers: {
         ...config.headers,
         'Content-Type': 'multipart/form-data',

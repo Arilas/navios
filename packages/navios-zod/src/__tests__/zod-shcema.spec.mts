@@ -89,4 +89,25 @@ describe('navios-zod', () => {
     })
     expect(result2).toEqual({ status: 400, data: { error: 'test' } })
   })
+
+  it('should ask for a bind parameter', async () => {
+    const adapter = makeNaviosFakeAdapter()
+    adapter.mock(
+      '/api/bar/test',
+      'GET',
+      () => new Response(JSON.stringify({ data: 'test' })),
+    )
+    const api = createAPI({ baseURL: '/api', adapter: adapter.fetch })
+    const getTest = api.declareEndpoint({
+      method: 'GET',
+      url: '/$foo/test' as const,
+      responseSchema: z.object({ data: z.string() }),
+    })
+    const result = await getTest({
+      urlParams: {
+        foo: 'bar',
+      },
+    })
+    expect(result).toEqual({ data: 'test' })
+  })
 })

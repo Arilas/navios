@@ -15,16 +15,37 @@ export interface DeclareAPIConfig {
   useWholeResponse?: boolean
 }
 
+export type ParsePathParams<
+  T extends string,
+  TAcc = never,
+> = T extends `${string}$${infer TPossiblyParam}`
+  ? TPossiblyParam extends `${infer TParam}/${infer TRest}`
+    ? ParsePathParams<TRest, TParam extends '' ? '_splat' : TParam | TAcc>
+    : TPossiblyParam extends ''
+      ? '_splat'
+      : TPossiblyParam | TAcc
+  : TAcc
+
+export type UrlParams<Url extends string> = {
+  [key in ParsePathParams<Url>]: string | number
+}
+
+export type UrlHasParams<Url extends string> =
+  ParsePathParams<Url> extends never ? false : true
+
 export interface NaviosZodRequestBase extends RequestInit {
   headers?: Record<string, string>
   baseURL?: string
   validateStatus?: (status: number) => boolean
-  urlParams?: Record<string, string>
 }
 
 export type NaviosZodRequest<
-  Config extends EndpointConfig | EndpointWithDataConfig,
+  Config extends EndpointConfig | EndpointWithDataConfig | BlobEndpointConfig,
 > = NaviosZodRequestBase &
+  (UrlHasParams<Config['url']> extends true
+    ? { urlParams: UrlParams<Config['url']> }
+    : {}) &
+  (Config extends BlobEndpointConfig ? { fileName: string } : {}) &
   (Config extends EndpointWithDataConfig
     ? { data: z.input<EndpointRequestSchema<Config>> }
     : {}) &
@@ -49,6 +70,74 @@ export interface EndpointWithDataConfig extends EndpointConfig {
   method: 'POST' | 'PUT' | 'PATCH'
   requestSchema: AnyZodObject
 }
+
+export interface BlobEndpointConfig {
+  method: 'GET'
+  url: string
+  querySchema?: AnyZodObject
+  download: boolean
+}
+
+export type RequiredRequestEndpoint<
+  Config extends EndpointConfig | EndpointWithDataConfig,
+> = (
+  request: NaviosZodRequest<Config>,
+) => Promise<z.infer<EndpointResponseSchema<Config>>>
+
+export type OptionalRequestEndpoint<
+  Config extends EndpointConfig | EndpointWithDataConfig,
+> = (
+  request?: NaviosZodRequest<Config>,
+) => Promise<z.infer<EndpointResponseSchema<Config>>>
+
+export type EndpointWithoutQuery<
+  Config extends EndpointConfig | EndpointWithDataConfig,
+> =
+  UrlHasParams<Config['url']> extends true
+    ? RequiredRequestEndpoint<Config>
+    : Config extends EndpointWithDataConfig
+      ? RequiredRequestEndpoint<Config>
+      : OptionalRequestEndpoint<Config>
+
+export type Endpoint<Config extends EndpointConfig | EndpointWithDataConfig> =
+  Config['querySchema'] extends AnyZodObject
+    ? RequiredRequestEndpoint<Config>
+    : EndpointWithoutQuery<Config>
+
+export type DataEndpointType<
+  RequestSchema extends AnyZodObject,
+  ResponseSchema extends AnyZodObject | ZodDiscriminatedUnion<any, any>,
+  QuerySchema extends AnyZodObject | undefined = undefined,
+> = QuerySchema extends undefined
+  ? EndpointWithoutQuery<{
+      method: 'POST' | 'PUT' | 'PATCH'
+      requestSchema: RequestSchema
+      responseSchema: ResponseSchema
+      url: string
+    }>
+  : Endpoint<{
+      method: 'POST' | 'PUT' | 'PATCH'
+      requestSchema: RequestSchema
+      responseSchema: ResponseSchema
+      url: string
+      querySchema: QuerySchema
+    }>
+
+export type EndpointType<
+  ResponseSchema extends AnyZodObject | ZodDiscriminatedUnion<any, any>,
+  QuerySchema extends AnyZodObject | undefined = undefined,
+> = QuerySchema extends undefined
+  ? EndpointWithoutQuery<{
+      method: HttpMethod
+      responseSchema: ResponseSchema
+      url: string
+    }>
+  : Endpoint<{
+      method: HttpMethod
+      responseSchema: ResponseSchema
+      url: string
+      querySchema: QuerySchema
+    }>
 
 export type EndpointMethod<Config extends EndpointConfig> = Config['method']
 export type EndpointURL<Config extends EndpointConfig> = Config['url']

@@ -73,6 +73,7 @@ export function create(baseConfig: NaviosConfig = {}): Navios {
         ...normalizedBaseConfig.headers,
         ...config.headers,
       },
+      baseURL: '',
       url: config.url
         ? `${config.baseURL ?? normalizedBaseConfig.baseURL}${config.url}`
         : config.baseURL ?? normalizedBaseConfig.baseURL,
