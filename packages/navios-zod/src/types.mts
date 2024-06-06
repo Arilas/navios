@@ -1,4 +1,4 @@
-import type { HttpMethod, NaviosConfig } from 'navios'
+import type { HttpMethod, NaviosConfig, NaviosError } from 'navios'
 import type { AnyZodObject, z, ZodDiscriminatedUnion } from 'zod'
 
 export interface DeclareAPIConfig {
@@ -8,6 +8,7 @@ export interface DeclareAPIConfig {
    * to parse error response using the same schema as success response.
    */
   useDiscriminatorResponse?: boolean
+
   /**
    * If you want to use the whole response object instead of just the data
    * for the response schema, you can set this to true.
@@ -41,17 +42,21 @@ export interface NaviosZodRequestBase extends RequestInit {
 
 export type NaviosZodRequest<
   Config extends EndpointConfig | EndpointWithDataConfig | BlobEndpointConfig,
-> = NaviosZodRequestBase &
-  (UrlHasParams<Config['url']> extends true
-    ? { urlParams: UrlParams<Config['url']> }
+> = (UrlHasParams<Config['url']> extends true
+  ? { urlParams: UrlParams<Config['url']> }
+  : {}) &
+  (Config extends BlobEndpointConfig
+    ? Config['download'] extends true
+      ? { fileName: string }
+      : {}
     : {}) &
-  (Config extends BlobEndpointConfig ? { fileName: string } : {}) &
   (Config extends EndpointWithDataConfig
     ? { data: z.input<EndpointRequestSchema<Config>> }
     : {}) &
   (Config['querySchema'] extends AnyZodObject
     ? { params: z.input<Config['querySchema']> }
-    : {})
+    : {}) &
+  NaviosZodRequestBase
 
 export interface APIConfig extends DeclareAPIConfig {
   baseURL: string
@@ -89,6 +94,10 @@ export type OptionalRequestEndpoint<
 > = (
   request?: NaviosZodRequest<Config>,
 ) => Promise<z.infer<EndpointResponseSchema<Config>>>
+
+export type BlobRequestEndpoint<Config extends BlobEndpointConfig> = (
+  request: NaviosZodRequest<Config>,
+) => Promise<Blob>
 
 export type EndpointWithoutQuery<
   Config extends EndpointConfig | EndpointWithDataConfig,
@@ -138,6 +147,23 @@ export type EndpointType<
       url: string
       querySchema: QuerySchema
     }>
+
+type Util_FlatObject<T> = T extends object
+  ? { [K in keyof T]: K extends 'urlParams' ? Util_FlatObject<T[K]> : T[K] }
+  : T
+
+export type Util_FlatType<T> =
+  T extends OptionalRequestEndpoint<any>
+    ? T extends (request?: infer Args) => infer R
+      ? (request?: Util_FlatObject<Args>) => R
+      : never
+    : T extends RequiredRequestEndpoint<any>
+      ? T extends (request: infer Args) => infer R
+        ? (request: Util_FlatObject<Args>) => R
+        : never
+      : T extends (request: infer Args) => infer R
+        ? (request: Util_FlatObject<Args>) => R
+        : never
 
 export type EndpointMethod<Config extends EndpointConfig> = Config['method']
 export type EndpointURL<Config extends EndpointConfig> = Config['url']

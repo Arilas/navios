@@ -1,6 +1,6 @@
 {
   "name": "@navios/navios-zod",
-  "version": "0.4.0-alpha.5",
+  "version": "0.4.0",
   "author": {
     "name": "Oleksandr Hanzha",
     "email": "alex@granted.name"
