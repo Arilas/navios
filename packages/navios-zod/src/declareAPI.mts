@@ -139,13 +139,13 @@ export function declareAPI({
   }
 
   return {
-    get: makeMethodCreator('GET'),
-    post: makeMethodCreator('POST'),
-    put: makeMethodCreator('PUT'),
-    delete: makeMethodCreator('DELETE'),
-    patch: makeMethodCreator('PATCH'),
-    head: makeMethodCreator('HEAD'),
-    options: makeMethodCreator('OPTIONS'),
+    defineGet: makeMethodCreator('GET'),
+    definePost: makeMethodCreator('POST'),
+    definePut: makeMethodCreator('PUT'),
+    defineDelete: makeMethodCreator('DELETE'),
+    definePatch: makeMethodCreator('PATCH'),
+    defineHead: makeMethodCreator('HEAD'),
+    defineOptions: makeMethodCreator('OPTIONS'),
     declareEndpoint,
     declareBlobEndpoint,
     provideClient,
