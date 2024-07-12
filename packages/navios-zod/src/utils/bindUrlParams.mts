@@ -20,11 +20,14 @@ export function bindUrlParams<Url extends string>(
       .map(([, group]) => group)
       .reduce(
         (newMessage, param) =>
-          newMessage.replaceAll(
-            new RegExp(`\\$${param}`, 'g'),
-            // @ts-expect-error TS18048 we checked urlParams before
-            params.urlParams[param as string],
-          ),
+          // @ts-expect-error TS18048 we checked urlParams before
+          params.urlParams[param as string]
+            ? newMessage.replaceAll(
+                new RegExp(`\\$${param}`, 'g'),
+                // @ts-expect-error TS18048 we checked urlParams before
+                params.urlParams[param as string],
+              )
+            : newMessage,
         urlPart,
       )
   }
