@@ -1,12 +1,12 @@
 {
-  "name": "@navios/navios-zod",
-  "version": "0.5.0-alpha.0",
+  "name": "@navios/navios-zod-react",
+  "version": "0.5.0-alpha.5",
   "author": {
     "name": "Oleksandr Hanzha",
     "email": "alex@granted.name"
   },
   "repository": {
-    "directory": "packages/navios-zod",
+    "directory": "packages/navios-zod-react",
     "type": "git",
     "url": "https://github.com/Arilas/navios.git"
   },
@@ -15,6 +15,7 @@
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "peerDependencies": {
+    "@tanstack/react-query": "^5.51.21",
     "navios": "workspace:^",
     "zod": "^3.23.8"
   },
@@ -31,6 +32,8 @@
     }
   },
   "devDependencies": {
+    "@navios/navios-zod": "workspace:^",
+    "@tanstack/react-query": "^5.51.21",
     "navios": "workspace:^",
     "typescript": "^5.4.5",
     "zod": "^3.23.8"

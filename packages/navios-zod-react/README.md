@@ -1,6 +1,6 @@
-# Navios Zod API
+# Navios Zod React
 
-`Navios Zod` is a simple wrapper around `zod` library to provide a more convenient way to work with `zod` schemas.
+`Navios Zod React` is a helper for a navios zod to use with Tanstack React Query.
 
 ## Why?
 
@@ -35,9 +35,8 @@ const GetUserResponseSchema = z.object({
   name: z.string(),
 })
 
-const getUser = API.declareEndpoint({
-  method: 'get',
-  url: 'user',
+const getUser = API.get({
+  user: 'user',
   responseSchema: GetUserResponseSchema,
 })
 ```
@@ -72,8 +71,7 @@ const UpdateUserResponseSchema = z.discriminatedUnion('status', [
   }),
 ])
 
-const updateUser = API.declareEndpoint({
-  method: 'PUT',
+const updateUser = API.put({
   url: 'user/$userId',
   requestSchema: UpdateUserRequestSchema,
   responseSchema: UpdateUserResponseSchema,
@@ -138,6 +136,15 @@ declareEndpoint({
 provideClient(client: Navios)
 ```
 
+#### `get`, `post`, `put`, `delete`, `patch`, `options` - creates an endpoint with the specified options.
+
+```ts
+API.get({
+  url: string,
+  responseSchema: z.ZodSchema<unknown>,
+  querySchema?: z.ZodSchema<unknown>,
+})
+```
 
 ### `createAPI`
 

@@ -4,6 +4,7 @@
   "workspaces": [
     "packages/navios",
     "packages/navios-zod",
+    "packages/navios-zod-react",
     "packages/angular-module",
     "packages/nestjs-module",
     "packages/nx-yarn"

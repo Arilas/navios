@@ -1,6 +1,3 @@
-import type { NaviosResponse } from 'navios'
-
-import type { BlobEndpointConfig, NaviosZodRequest } from '../types.mjs'
 
 export function downloadBlob(data: Blob, fileName: string) {
   const blobUrl = window.URL.createObjectURL(data)
